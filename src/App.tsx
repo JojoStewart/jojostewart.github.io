@@ -47,30 +47,35 @@ function App() {
     }
   };
 
-  const triggerWin = () => {
-    setGameState("win");
+  const resetGame = (result: GameState, delay: number) => {
+    setGameState(result);
 
-    // Wait half a second to start the next round.
     setTimeout(() => {
       setCount(1);
-      setScore(score + 1);
-      setMusicalsCount(musicalsCount + 1);
       setGuesses(["", "", "", "", "", ""]);
-    }, 2000);
+      setGameState("playing");
+
+      if (result === "win") {
+        setScore(score + 1);
+        setMusicals(shuffleMusicals(MUSICALS_LIST));
+      } else if (result === "lose") {
+        setScore(0);
+        setMusicalsCount(musicalsCount + 1);
+      }
+    }, delay);
+  };
+
+  const triggerWin = () => {
+    resetGame("win", 2000);
 
     if (musicalsCount > MUSICALS_LIST.length) {
-      alert("Game Over"); // TODO test
+      alert("Game Over"); // TODO test, ask Moxon what they wanna do here.
     }
   };
 
+  // TODO could delete?
   const triggerLose = () => {
-    // Wait half a second to reset the form.
-    setTimeout(() => {
-      setCount(1);
-      setScore(0);
-      setGuesses(["", "", "", "", "", ""]);
-      setMusicals(shuffleMusicals(MUSICALS_LIST));
-    }, 500);
+    resetGame("lose", 1000);
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -86,10 +91,10 @@ function App() {
   };
 
   return (
-    <div className="App bg-[url('musicle-bg.png')] bg-contain bg-no-repeat bg-[#FFF5CD] bg-center-top	">
+    <div className="App bg-[url('musicle-bg.png')] bg-contain bg-no-repeat bg-[#FFF5CD] bg-center-top">
       <header className="App-header">
         <div className="w-[300px]">
-          {/* <div>{musical}</div> */}
+          <div>{musical}</div>
           <div className="flex flex-row justify-center items-center py-20">
             {emojis.map((emoji, index) => (
               <div key={emoji} className="md:text-5xl text-2xl">
@@ -106,7 +111,17 @@ function App() {
                     type="text"
                     className="p-2 my-1 text-sm rounded-md bg-green-100 border border-green-500 text-gray-900"
                     disabled={true}
-                    value={`🎉  ${guessText}  🎉`}
+                    value={`🎉  ${musical}  🎉`}
+                    key={i}
+                  ></input>
+                );
+              } else if (gameState === "lose" && i === guesses.length - 1) {
+                return (
+                  <input
+                    type="text"
+                    className="p-2 my-1 text-sm rounded-md bg-red-100 border border-red-500 text-gray-900"
+                    disabled={true}
+                    value={guess}
                     key={i}
                   ></input>
                 );
