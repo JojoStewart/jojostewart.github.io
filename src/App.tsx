@@ -94,7 +94,7 @@ function App() {
     <div className="App bg-[url('musicle-bg.png')] bg-contain bg-no-repeat bg-[#FFF5CD] bg-center-top">
       <header className="App-header">
         <div className="w-[300px]">
-          <div>{musical}</div>
+          {/* <div>{musical}</div> */}
           <div className="flex flex-row justify-center items-center py-20">
             {emojis.map((emoji, index) => (
               <div key={emoji} className="md:text-5xl text-2xl">
