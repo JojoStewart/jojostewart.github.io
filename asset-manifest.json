@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/musicle/static/css/main.c51da919.css",
-    "main.js": "/musicle/static/js/main.4b783553.js",
-    "static/js/787.28cb0dcd.chunk.js": "/musicle/static/js/787.28cb0dcd.chunk.js",
+    "main.css": "/musicle/static/css/main.ba487824.css",
+    "main.js": "/musicle/static/js/main.6d32115f.js",
+    "static/js/787.14964127.chunk.js": "/musicle/static/js/787.14964127.chunk.js",
     "static/media/musicle-bg.png": "/musicle/static/media/musicle-bg.3b469c93f64b081d7691.png",
     "static/media/guess.png": "/musicle/static/media/guess.1c4846d48d40c183facd.png",
     "index.html": "/musicle/index.html",
-    "main.c51da919.css.map": "/musicle/static/css/main.c51da919.css.map",
-    "main.4b783553.js.map": "/musicle/static/js/main.4b783553.js.map",
-    "787.28cb0dcd.chunk.js.map": "/musicle/static/js/787.28cb0dcd.chunk.js.map"
+    "main.ba487824.css.map": "/musicle/static/css/main.ba487824.css.map",
+    "main.6d32115f.js.map": "/musicle/static/js/main.6d32115f.js.map",
+    "787.14964127.chunk.js.map": "/musicle/static/js/787.14964127.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c51da919.css",
-    "static/js/main.4b783553.js"
+    "static/css/main.ba487824.css",
+    "static/js/main.6d32115f.js"
   ]
 }
