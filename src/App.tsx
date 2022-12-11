@@ -16,36 +16,13 @@ function App() {
   const [musicals, setMusicals] = useState(shuffleMusicals(MUSICALS_LIST));
   const [musicalsCount, setMusicalsCount] = useState(0);
 
+  // const [showAnswer, setShowAnswer] = useState(true);
+
   // Shuffle the order of the musicals every game.
   const { name: musical, emojis } = useMemo(
     () => musicals[musicalsCount],
     [musicals, musicalsCount]
   );
-
-  const isCorrectGuess = (guess: string) => {
-    return guess.toLowerCase() === musical.toLowerCase();
-  };
-
-  const makeGuess = () => {
-    // Don't accept blank guesses.
-    if (guessText.length <= 0) {
-      return;
-    }
-
-    if (isCorrectGuess(guessText)) {
-      triggerWin();
-    }
-
-    let current = guesses;
-    current[count - 1] = guessText;
-    setGuesses(current);
-    setCount(count + 1);
-
-    if (count === emojis.length) {
-      // Game is over
-      triggerLose();
-    }
-  };
 
   const resetGame = (result: GameState, delay: number) => {
     setGameState(result);
@@ -54,6 +31,7 @@ function App() {
       setCount(1);
       setGuesses(["", "", "", "", "", ""]);
       setGameState("playing");
+      // setShowAnswer(false);
 
       if (result === "win") {
         setScore(score + 1);
@@ -74,7 +52,35 @@ function App() {
   };
 
   const triggerLose = () => {
+    // setShowAnswer(true);
     resetGame("lose", 1000);
+  };
+
+  const makeGuess = () => {
+    // Don't accept blank guesses.
+    if (guessText.length <= 0) {
+      return;
+    }
+
+    if (isCorrectGuess(guessText)) {
+      triggerWin();
+    }
+
+    let current = guesses;
+    current[count - 1] = guessText;
+
+    setGuessText("");
+    setGuesses(current);
+    setCount(count + 1);
+
+    if (count === emojis.length) {
+      // Game is over
+      triggerLose();
+    }
+  };
+
+  const isCorrectGuess = (guess: string) => {
+    return guess.toLowerCase() === musical.toLowerCase();
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -103,6 +109,10 @@ function App() {
             ))}
           </div>
 
+          {/* <div className="h-10 mb-10">
+            {showAnswer ? <p>{musical}</p> : null}
+          </div> */}
+
           <div className="flex flex-col">
             {guesses.map((guess, i) => {
               if (gameState === "win" && isCorrectGuess(guess)) {
@@ -121,7 +131,7 @@ function App() {
                     type="text"
                     className="p-2 my-1 text-sm rounded-md bg-red-100 border border-red-500 text-gray-900"
                     disabled={true}
-                    value={guess}
+                    value={`😢  ${musical}  😢`}
                     key={i}
                   ></input>
                 );
@@ -142,6 +152,7 @@ function App() {
           <input
             type="text"
             className="w-full my-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+            value={guessText}
             placeholder={"Musical name"}
             onChange={(e) => handleChange(e)}
             onKeyPress={handleKeypress}
